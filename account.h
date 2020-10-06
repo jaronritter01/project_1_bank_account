@@ -2,7 +2,7 @@
 #define ACCOUNT
 
 class Account{
-    private:
+    protected:
         int accountNumber;
         double balance;
         double interestRate;
@@ -11,11 +11,13 @@ class Account{
         Account(int accNum, double bal, double intRate, double annServCharge);
         virtual bool deposit(double dAmount);
         virtual bool withdraw(double wAmount);
+        void setAnnualServiceCharge(double rate);
         void calcInt();
         void yearlyCharge();
         double getBalance() const;
         int getAccountNumber() const;
         double getInterestRate() const;
+        double getAnnualServiceCharge() const;
         virtual void closeAcc();
 };
 
@@ -25,6 +27,14 @@ Account::Account(int accNum=0, double bal=0.0, double intRate=0.0, double annSer
     balance = bal;
     interestRate = intRate;
     annualServiceCharge = annServCharge;
+}
+
+void Account::setAnnualServiceCharge(double rate){
+    annualServiceCharge = rate;
+}
+
+double Account::getAnnualServiceCharge() const{
+    return annualServiceCharge;
 }
 
 double Account::getBalance() const{
