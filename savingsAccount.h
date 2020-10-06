@@ -11,7 +11,7 @@ class SavingsAccount : public Account{
 
 SavingsAccount::SavingsAccount(int SAccNum = 0, double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, bool AccStatus = true) : 
 Account(SAccNum, SBal, SIntRate, SAnnServCharge){
-    //Constructor
+    //Constructor 
     status =  AccStatus;
 }
 
