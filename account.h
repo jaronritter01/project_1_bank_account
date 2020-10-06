@@ -1,8 +1,6 @@
 #ifndef ACCOUNT
 #define ACCOUNT
 
-#include <string>
-
 class Account{
     private:
         int accountNumber;
@@ -22,6 +20,7 @@ class Account{
 };
 
 Account::Account(int accNum=0, double bal=0.0, double intRate=0.0, double annServCharge=0.0){
+    //constructor
     accountNumber = accNum;
     balance = bal;
     interestRate = intRate;
@@ -29,18 +28,24 @@ Account::Account(int accNum=0, double bal=0.0, double intRate=0.0, double annSer
 }
 
 double Account::getBalance() const{
+    //getter for balance
     return balance;
 }
 
 int Account::getAccountNumber() const{
+    //getter for account number
     return accountNumber;
 }
 
 double Account::getInterestRate() const{
+    //getter for interest rate
     return interestRate;
 }
 
 bool Account::deposit(double dAmount){
+    /*deposit function: will return true if the value inputed is a valid on and if the transaction occured succefully
+      and will return false otherwise
+    */
     if(dAmount > 0){
         balance += dAmount;
         return true;
@@ -50,6 +55,10 @@ bool Account::deposit(double dAmount){
 }
 
 bool Account::withdraw(double wAmount){
+    /*
+    withdraw function: will return true if the value inputed is a valid on and if the transaction occured succefully
+    and will return false otherwise
+    */
     if(wAmount > 0){
         balance -= wAmount;
         return true;
@@ -59,17 +68,28 @@ bool Account::withdraw(double wAmount){
 }
 
 void Account::calcInt(){
+    /*
+    Will calculate interest and add it to the account 
+    NOTE: INTEREST IS ADDED DAILY
+    */
     double dailyInterestRate = interestRate / 365.25;
     double dailyInterest = balance * dailyInterestRate;
     balance += dailyInterest;
 }
 
 void Account::yearlyCharge(){
-    //Only needs to happen once a year
+    /*
+    Will charge the account a annual service fee
+    NOTE: SHOULD ONLY HAPPEN ONCE A YEAR
+    */
     balance -= annualServiceCharge;
 }
 
 void Account::closeAcc(){
+    /*
+    This will set the balance and the service fee to 0 
+    NOTE: THE INTEREST RATE AND ACCOUNT NUMBER OF THE ACCOUNT WILL STILL BE ACCESSIBLE
+    */
     balance = 0;
     annualServiceCharge = 0;
 }
