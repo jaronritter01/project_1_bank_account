@@ -1,27 +1,32 @@
 #ifndef ACCOUNT
 #define ACCOUNT
 
+#include <string>
+//make acc num a string
+
+using namespace std;
+
 class Account{
     protected:
-        int accountNumber;
+        string accountNumber;
         double balance;
         double interestRate;
         double annualServiceCharge;
     public:
-        Account(int accNum, double bal, double intRate, double annServCharge);
+        Account(string accNum, double bal, double intRate, double annServCharge);
         virtual bool deposit(double dAmount);
         virtual bool withdraw(double wAmount);
         void setAnnualServiceCharge(double rate);
         void calcInt();
         void yearlyCharge();
         double getBalance() const;
-        int getAccountNumber() const;
+        string getAccountNumber() const;
         double getInterestRate() const;
         double getAnnualServiceCharge() const;
         virtual void closeAcc();
 };
 
-Account::Account(int accNum=0, double bal=0.0, double intRate=0.0, double annServCharge=0.0){
+Account::Account(string accNum="0", double bal=0.0, double intRate=0.0, double annServCharge=0.0){
     //constructor
     accountNumber = accNum;
     balance = bal;
@@ -42,7 +47,7 @@ double Account::getBalance() const{
     return balance;
 }
 
-int Account::getAccountNumber() const{
+string Account::getAccountNumber() const{
     //getter for account number
     return accountNumber;
 }

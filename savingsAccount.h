@@ -9,7 +9,7 @@ class SavingsAccount : public Account{
     private:
         string status;
     public:
-        SavingsAccount(int SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
+        SavingsAccount(string SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
         void setAccountActiveStatus();
         virtual void serviceCharge();
         void checkInterestRate();
@@ -17,9 +17,10 @@ class SavingsAccount : public Account{
         void setAnnualServiceCharge(double rate);
 };
 
-SavingsAccount::SavingsAccount(int SAccNum = 0, double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, string AccStatus = "active") : Account(SAccNum, SBal, SIntRate, SAnnServCharge){
+SavingsAccount::SavingsAccount(string SAccNum = "0", double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, string AccStatus = "active") : Account(SAccNum, SBal, SIntRate, SAnnServCharge){
     //Constructor 
     status =  AccStatus;
+    accountNumber = "S" + accountNumber;
 }
 
 void SavingsAccount::setAnnualServiceCharge(double rate = 0.0){
