@@ -3,6 +3,7 @@
 
 #include "account.h"
 #include <string>
+#include <iostream>
 
 using namespace std; 
 
@@ -48,6 +49,7 @@ bool SavingsAccount::deposit(double dAmount){
     }else{
         return false;
     }
+    return true;
 }
 
 bool SavingsAccount::withdraw(double wAmount){
