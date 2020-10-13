@@ -82,6 +82,7 @@ int main()
                while(selection !=3){
                   cout << "Welcome\nPlease select an option\n[1] Checking\n[2] Savings\n[3] Return to Menu";
                   cin >> selection;
+                  double depositAmount = 0.0;
 
                   int option = 0;
                   switch (selection){
@@ -95,7 +96,8 @@ int main()
                                  break;
                               }
                               case 2:{
-                                 cout << "Case 2\n";
+                                 cout << "Enter Deposit Amount: \n";
+                                 cin >> depositAmount;
                                  break;
                               }
                               case 3:{
