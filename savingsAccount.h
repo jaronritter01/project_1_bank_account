@@ -1,7 +1,9 @@
 #ifndef SAVINGSACCOUNT
 #define SAVINGSACCOUNT
+
 #include "account.h"
 #include <string>
+#include <iostream>
 
 using namespace std; 
 
@@ -11,16 +13,70 @@ class SavingsAccount : public Account{
     public:
         SavingsAccount(string SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
         void setAccountActiveStatus();
-        virtual void serviceCharge();
         void checkInterestRate();
         void yearlyCharge();
         void setAnnualServiceCharge(double rate);
+        bool withdraw(double wAmount);
+        bool deposit(double dAmount);
+        void closeAcc(); // Implement
 };
 
 SavingsAccount::SavingsAccount(string SAccNum = "0", double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, string AccStatus = "active") : Account(SAccNum, SBal, SIntRate, SAnnServCharge){
     //Constructor 
     status =  AccStatus;
     accountNumber = "S" + accountNumber;
+}
+
+void SavingsAccount::closeAcc(){
+    balance = 0.0;
+    status = "closed";
+}
+
+bool SavingsAccount::deposit(double dAmount){
+    /*
+    This will make it so that if the account is closed no deposit can be made, and if the deposit brings the account above $50 the account will be reactivated
+    and if it brings the account inbetween $1 and $50 the status will remain inactive;
+    */
+    if((dAmount > 0) && (status != "closed")){
+        balance += dAmount;
+        if(balance >= 50.0){
+            status = "active";
+            return true;
+        }else if((balance >= 1.0) && (balance < 50.0)){
+            status = "inactive";
+            return true;
+        }
+    }else{
+        return false;
+    }
+    return true;
+}
+
+bool SavingsAccount::withdraw(double wAmount){
+    /* 
+    The way this is set up is that if the account isn't closed or inactive the charge will be taken out only if they have over $50
+    or they wont go under $0 from the $5 dollar charge for being under $50 
+    */
+    if (status != "closed"){
+        if ((status == "active") && (balance - wAmount >= 0)){
+
+            if (balance - wAmount >= 50.0){
+                balance -= wAmount;
+                return true;
+            }else if ((balance - wAmount < 50.0) && (balance - (wAmount + 5) >= 0)){
+                balance -= wAmount;
+                balance -= 5.0;
+                return true;
+            }else{
+                return false;
+            } 
+
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
 }
 
 void SavingsAccount::setAnnualServiceCharge(double rate = 0.0){
@@ -33,12 +89,6 @@ void SavingsAccount::setAccountActiveStatus(){
         status = "closed";
     }else if(balance < 50.0){
         status = "inactive";
-    }
-}
-
-void SavingsAccount::serviceCharge(){
-    if (balance < 50.0){
-        balance -= 5.0;
     }
 }
 
