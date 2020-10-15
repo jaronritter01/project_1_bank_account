@@ -66,9 +66,11 @@ void CheckingAccount:: checkBalance()
    //checks to see if balance is no longer in the positive if not it will flage account with *
    if(balance < 0.0)
    {
-      accountNumber = accountNumber + "*";
+      if(accountNumber.find("*") == string::npos)
+      {
+         accountNumber = accountNumber + "*";
+      }
    }
 }
 
 #endif
-
