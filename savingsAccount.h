@@ -2,8 +2,8 @@
 #define SAVINGSACCOUNT
 
 #include "account.h"
-#include <string>
 #include <iostream>
+#include <string>
 
 using namespace std; 
 
@@ -13,6 +13,7 @@ class SavingsAccount : public Account{
     public:
         SavingsAccount(string SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
         void setAccountActiveStatus();
+        string getAccountActiveStatus();
         void checkInterestRate();
         void yearlyCharge();
         void setAnnualServiceCharge(double rate);
@@ -32,6 +33,11 @@ void SavingsAccount::closeAcc(){
     status = "closed";
 }
 
+string SavingsAccount :: getAccountActiveStatus()
+{
+   return status;
+}
+
 bool SavingsAccount::deposit(double dAmount){
     /*
     This will make it so that if the account is closed no deposit can be made, and if the deposit brings the account above $50 the account will be reactivated
@@ -46,10 +52,14 @@ bool SavingsAccount::deposit(double dAmount){
             status = "inactive";
             return true;
         }
-    }else{
+        else
+        {
+            return false;
+        }
+    }
+    else{
         return false;
     }
-    return true;
 }
 
 bool SavingsAccount::withdraw(double wAmount){
