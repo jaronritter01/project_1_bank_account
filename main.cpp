@@ -1,3 +1,11 @@
+/*
+   this program represents a bank account that can create a account that has two different sub accounts. One account is a checking account this account has interest and a yearly charge fee
+   . the other account is a savings account, this account only has interest. Both of the accounts have sepeate balances and both have withdraw and deposit functions.
+   The user can choose to enter a new account or login into a checking account or savings account and perform the widthdraw, deposit or just return the balance. 
+*/
+
+
+// declares different account types that are used 
 #include "account.h"
 #include "checkingAccount.h"
 #include "savingsAccount.h"
@@ -10,6 +18,8 @@
 
 using namespace std;
 
+
+
 vector<CheckingAccount> readFromFileChecking();
 vector<SavingsAccount> readFromFileSavings();
 void writeToFile(vector<CheckingAccount> &checkingAccounts, vector<SavingsAccount> &savingsAccounts);
@@ -18,6 +28,7 @@ double howManyDays(string dateOne, string dateTwo);
 
 int main()
 {
+   //creates two vectors that contain checking and saving accounts respectivly and then using hte readFromFile functions the accounts stored in accounts.txt are return to vectors.
    vector <CheckingAccount> checkingAccounts;
    vector <SavingsAccount> savingsAccounts;
    checkingAccounts = readFromFileChecking();
