@@ -1,16 +1,17 @@
 #ifndef SAVINGSACCOUNT
 #define SAVINGSACCOUNT
-
-#include "account.h"
+#include <"account.h">
 #include <iostream>
 #include <string>
 
 using namespace std; 
 
-class SavingsAccount : public Account{
+class SavingsAccount : public Account{ // Child of Account 
     private:
+        //This is the only added data type
         string status;
     public:
+        //Methods
         SavingsAccount(string SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
         void setAccountActiveStatus();
         string getAccountActiveStatus();
@@ -19,24 +20,28 @@ class SavingsAccount : public Account{
         void setAnnualServiceCharge(double rate);
         bool withdraw(double wAmount);
         bool deposit(double dAmount);
-        void closeAcc(); // Implement
+        void closeAcc(); 
+        string getAccountActiveStatus() const;
 };
 
 SavingsAccount::SavingsAccount(string SAccNum = "0", double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, string AccStatus = "active") : Account(SAccNum, SBal, SIntRate, SAnnServCharge){
     //Constructor 
     status =  AccStatus;
-    accountNumber = "S" + accountNumber;
+    accountNumber = "S" + accountNumber; // adds s to the account number entered so that it can be a savings account
+}
+
+string SavingsAccount::getAccountActiveStatus() const{
+    // getter for the status
+    return status;
 }
 
 void SavingsAccount::closeAcc(){
+    //This will close the account and make it unusable but keep a record of it
     balance = 0.0;
     status = "closed";
 }
 
-string SavingsAccount :: getAccountActiveStatus()
-{
-   return status;
-}
+
 
 bool SavingsAccount::deposit(double dAmount){
     /*
@@ -90,11 +95,13 @@ bool SavingsAccount::withdraw(double wAmount){
 }
 
 void SavingsAccount::setAnnualServiceCharge(double rate = 0.0){
+    //Setter for the annual service charge on the account 
     annualServiceCharge = 0.0;
 }
 
 
 void SavingsAccount::setAccountActiveStatus(){
+    //This will set the account active status based on balance
     if (balance < 1.0){
         status = "closed";
     }else if(balance < 50.0){
@@ -103,6 +110,7 @@ void SavingsAccount::setAccountActiveStatus(){
 }
 
 void SavingsAccount::checkInterestRate(){
+    // This will be used to see if the interest rate for the account is in the allowed limits 
     if(interestRate > 10.0){
         interestRate = 10.0;
         cout << "INTEREST RATE CANNOT BE LARGER THAN 10%\nINTEREST RATE WILL BE SET TO 10.0%\n";
@@ -113,6 +121,7 @@ void SavingsAccount::checkInterestRate(){
 }
 
 void SavingsAccount::yearlyCharge(){
+    //setter for the yearly service charge
     annualServiceCharge = 0.0;
 }
 
