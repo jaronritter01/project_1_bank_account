@@ -8,6 +8,7 @@ using namespace std;
 
 class CheckingAccount : public Account{
    public:
+      //These are the methods
       CheckingAccount(string accNumber, double bal, double intRate, double annServiceCharge);
       bool deposit(double dAmount);
       bool withdraw(double wAmount);
@@ -18,7 +19,7 @@ class CheckingAccount : public Account{
 
 CheckingAccount:: CheckingAccount(string accNumber = " ", double bal = 0.0, double intRate = 0.0, double annServiceCharge = 0.0) : Account(accNumber,bal,intRate,annServiceCharge)
 {
-   //constructor
+   //constructor, adds c to the account number so it can be a checking account
    accountNumber = "C" + accNumber;
 }
 

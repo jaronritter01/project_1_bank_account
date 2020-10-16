@@ -9,13 +9,16 @@ using namespace std;
 
 class Account{
     protected:
-        string accountNumber;
-        double balance;
-        double interestRate;
-        double annualServiceCharge;
-        tm *timeCreated;
+        //Several data members all are protected so that the child classes can still access these
+
+        string accountNumber; // stores account number
+        double balance; // stores balance
+        double interestRate; //stores getInterestRate
+        double annualServiceCharge; // stores the service charge
+        tm *timeCreated; // Stores the time the account was created
         
     public:
+        //Several methods
         Account(string accNum, double bal, double intRate, double annServCharge);
         virtual bool deposit(double dAmount);
         virtual bool withdraw(double wAmount);
@@ -40,12 +43,19 @@ Account::Account(string accNum="0", double bal=0.0, double intRate=0.0, double a
     interestRate = intRate;
     annualServiceCharge = annServCharge;
 
-    time_t currentTime;
-    time(&currentTime);
-    timeCreated = localtime(&currentTime);
+    /********************************************/
+    // This is what sets the time to the time of// 
+    // creation                                 //
+                                                //
+    time_t currentTime;                         //
+    time(&currentTime);                         //
+    timeCreated = localtime(&currentTime);      //
+    /********************************************/
+
 }
 
 string Account::getDateCreated() const{
+    //Getter for the creation date of the account
     string dateLine, day, month, year;
     day = to_string(timeCreated->tm_mday);
     month = to_string(timeCreated->tm_mon + 1);
@@ -56,22 +66,27 @@ string Account::getDateCreated() const{
 }
 
 int Account::getYearCreated() const{
+    //getter for the year of creation
     return timeCreated->tm_year + 1900;
 }
 
 int Account::getDayCreated() const{
+    //getter for the day of creation
     return timeCreated->tm_mday;
 }
 
 int Account::getMonthCreated() const{
+    //getter for the month of creation
     return timeCreated->tm_mon + 1;
 }
 
 void Account::setAnnualServiceCharge(double rate){
+    //setter for the annual service charge
     annualServiceCharge = rate;
 }
 
 double Account::getAnnualServiceCharge() const{
+    //getter for the annual service charge
     return annualServiceCharge;
 }
 
