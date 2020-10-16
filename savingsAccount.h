@@ -1,6 +1,6 @@
 #ifndef SAVINGSACCOUNT
 #define SAVINGSACCOUNT
-#include <"account.h">
+#include "account.h"
 #include <iostream>
 #include <string>
 
@@ -30,7 +30,7 @@ SavingsAccount::SavingsAccount(string SAccNum = "0", double SBal = 0.0, double S
     accountNumber = "S" + accountNumber; // adds s to the account number entered so that it can be a savings account
 }
 
-string SavingsAccount::getAccountActiveStatus() const{
+string SavingsAccount::getAccountActiveStatus(){
     // getter for the status
     return status;
 }
@@ -111,11 +111,11 @@ void SavingsAccount::setAccountActiveStatus(){
 
 void SavingsAccount::checkInterestRate(){
     // This will be used to see if the interest rate for the account is in the allowed limits 
-    if(interestRate > 10.0){
-        interestRate = 10.0;
+    if(interestRate > .1){
+        interestRate = .1;
         cout << "INTEREST RATE CANNOT BE LARGER THAN 10%\nINTEREST RATE WILL BE SET TO 10.0%\n";
-    }else if(interestRate < 0.1){
-        interestRate = 0.1;
+    }else if(interestRate < .001){
+        interestRate = 0.001;
         cout << "INTEREST RATE CANNOT BE SMALLER THAN 0.1%\nINTEREST RATE WILL BE SET TO 0.1%\n";
     }
 }
