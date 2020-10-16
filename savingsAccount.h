@@ -18,13 +18,18 @@ class SavingsAccount : public Account{
         void setAnnualServiceCharge(double rate);
         bool withdraw(double wAmount);
         bool deposit(double dAmount);
-        void closeAcc(); // Implement
+        void closeAcc(); 
+        string getAccountActiveStatus() const;
 };
 
 SavingsAccount::SavingsAccount(string SAccNum = "0", double SBal = 0.0, double SIntRate = 0.0, double SAnnServCharge = 0.0, string AccStatus = "active") : Account(SAccNum, SBal, SIntRate, SAnnServCharge){
     //Constructor 
     status =  AccStatus;
     accountNumber = "S" + accountNumber;
+}
+
+string SavingsAccount::getAccountActiveStatus() const{
+    return status;
 }
 
 void SavingsAccount::closeAcc(){
