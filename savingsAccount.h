@@ -1,7 +1,6 @@
 #ifndef SAVINGSACCOUNT
 #define SAVINGSACCOUNT
-
-#include "account.h" 
+#include <"account.h">
 #include <iostream>
 #include <string>
 
@@ -15,6 +14,7 @@ class SavingsAccount : public Account{ // Child of Account
         //Methods
         SavingsAccount(string SAccNum, double SBal, double SIntRate, double SAnnServCharge, string AccStatus);
         void setAccountActiveStatus();
+        string getAccountActiveStatus();
         void checkInterestRate();
         void yearlyCharge();
         void setAnnualServiceCharge(double rate);
@@ -40,6 +40,7 @@ void SavingsAccount::closeAcc(){
     balance = 0.0;
     status = "closed";
 }
+
 
 
 bool SavingsAccount::deposit(double dAmount){
