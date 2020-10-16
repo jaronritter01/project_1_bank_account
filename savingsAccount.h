@@ -38,7 +38,7 @@ void SavingsAccount::closeAcc(){
     status = "closed";
 }
 
-string SavingsAccount :: getAccountActiveStatus()
+string SavingsAccount::getAccountActiveStatus()
 {
    return status;
 }
