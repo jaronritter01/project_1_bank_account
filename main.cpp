@@ -84,12 +84,22 @@ int main()
                         getline(cin,sSaveInt);
                         if(checkIfNumber(sSaveInt) == true)
                         {
+                           string sBalance;
+                           cout<<"Enter balance for both acounts"; 
+                           getline(cin,sBalance);
+                           if(checkIfNumber(sBalance))
+                           {
                            //creates the new accounts and adds them to the vectors 
-                           CheckingAccount newCheckAcc(newAccountNum,0,stod(sCheckInt),stod(sCheckAnnCharge));
-                           SavingsAccount newSavAcc(newAccountNum,0,stod(sSaveInt),0);
-                           newSavAcc.checkInterestRate();
-                           checkingAccounts.push_back(newCheckAcc);
-                           savingsAccounts.push_back(newSavAcc);
+                              CheckingAccount newCheckAcc(newAccountNum,stod(sBalance),stod(sCheckInt),stod(sCheckAnnCharge));
+                              SavingsAccount newSavAcc(newAccountNum,stod(sBalance),stod(sSaveInt),0);
+                              newSavAcc.checkInterestRate();
+                              checkingAccounts.push_back(newCheckAcc);
+                              savingsAccounts.push_back(newSavAcc);
+                           }
+                           else
+                           {
+                              cout << "Invalid input" << endl;
+                           }
                         }
                         else
                         {
@@ -123,7 +133,7 @@ int main()
 
             int accountLocation = 0, doesExist = 0;
             //checks to see if the account exists or not
-            for(int i = 0; i < savingsAccount.size(); i++){
+            for(int i = 0; i < savingsAccounts.size(); i++){
                string accountNumberNoLetter = savingsAccounts[i].getAccountNumber().substr(1, savingsAccounts[i].getAccountNumber().length());
                if (accountNumber == accountNumberNoLetter){
                   accountLocation = i;
@@ -185,7 +195,7 @@ int main()
                                  if(checkWth == true)
                                  {
                                     double amount = stod(amountWth);
-                                    bool value = checkingAccounts[accountLocation].deposit(amount);
+                                    bool value = checkingAccounts[accountLocation].withdraw(amount);
                                     if(value = false)
                                     {
                                        cout<< "could not withdraw" << endl;
@@ -253,7 +263,7 @@ int main()
                                  if(checkWth == true)
                                  {
                                     double amount = stod(amountWth);
-                                    bool value = savingsAccounts[accountLocation].deposit(amount);
+                                    bool value = savingsAccounts[accountLocation].withdraw(amount);
                                     if(value = false)
                                     {
                                        cout<< "could not withdraw" << endl;
@@ -374,6 +384,7 @@ vector<CheckingAccount> readFromFileChecking()
          string newDate = chekAcc.getDateCreated();
          //function used to calculate days between the old date stored in file and the new date the was just created in new file 
          double days = howManyDays(date,newDate);
+         
          //for amount of of days will calculate interest
          for(int i = 0; i < days; i++)
          {
@@ -474,6 +485,7 @@ double howManyDays(string dateOne, string dateTwo)
    dateOne = dateOne.substr(dateOne.find(":") +1 , dateOne.length());
    int year = stoi(dateOne.substr(0, dateOne.find(":")));
    
+   
    //creates tm struct and assigns values of year day and mon into respective poitions 
    tm firstDate = tm();
    firstDate.tm_mday = day;
@@ -485,16 +497,19 @@ double howManyDays(string dateOne, string dateTwo)
    
    //assigns day month year from the second sring int own variable s
    mon = stoi(dateTwo.substr(0, dateTwo.find(":")));
-   dateOne = dateTwo.substr(dateTwo.find(":") +1 , dateTwo.length());
+   dateTwo = dateTwo.substr(dateTwo.find(":") +1 , dateTwo.length());
    day = stoi(dateTwo.substr(0, dateTwo.find(":")));
-   dateOne = dateTwo.substr(dateTwo.find(":") +1 , dateTwo.length());
+   dateTwo = dateTwo.substr(dateTwo.find(":") +1 , dateTwo.length());
    year = stoi(dateTwo.substr(0, dateTwo.find(":")));
+   
+   
    
    //creates a tm struct that contain the day mon and year of each
    tm secondDate = tm();
    secondDate.tm_mday = day;
    secondDate.tm_mon = mon - 1;
    secondDate.tm_year = year - 1900;
+   
    
    //creeates time _t object from mktime tm second dat
    time_t date2 = mktime(&secondDate);
